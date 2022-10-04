@@ -16,6 +16,7 @@ const App = () => {
   },[]);
 
 
+  //GET :
   const getList = () => {
     axios({
       url: "https://nitc.cleverapps.io/api/courses",
@@ -30,6 +31,29 @@ const App = () => {
       console.log(err)
     })
   }
+
+  //DELETE :
+
+  const handleDelete = (item) => {
+    axios({
+      url: "https://nitc.cleverapps.io/api/courses"+item.course_id,
+      method: "DELETE"
+    })
+    .then((response) => {
+      var res = response.data;
+      getList();
+    })
+  }
+
+  //EDIT :
+  const handleEdit = (item) => {
+    axios({
+      url: "",
+      method: "UPDATE"
+    })
+  }
+
+
  
 
 
@@ -46,7 +70,7 @@ const App = () => {
               <Text style={styles.txt_item}>{item.description}</Text>
               <Text style={item.status === 1 ? styles.txt_enabled : styles.txt_disabled}>{item.status === 1 ? "Enabled" : "Disabled"}</Text>
               </View>
-              {/* <View>
+              <View>
                 <TouchableOpacity
                 onPress={() => handleDelete(item)}
                 >
@@ -57,7 +81,7 @@ const App = () => {
                 >
                   <Text style={styles.txt_edit}> Edit </Text>
                 </TouchableOpacity>
-              </View> */}
+              </View>
             </View>
           )
         })
